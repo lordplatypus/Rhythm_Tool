@@ -18,22 +18,27 @@ void BPMScene::Init()
     menu.push_back(LP::SetText("Start BPM Setup", Vector2f(256, 256), 16));
     menu.push_back(LP::SetText("Start Playback", Vector2f(256, 256), 16));
     menu.push_back(LP::SetText("Save Changes", Vector2f(256, 256), 16));
+    menu.push_back(LP::SetText("Quit", Vector2f(256, 256), 16));
     for (auto i : menu) LP::SetTextOriginCenter(i); //set the origin to the center (テクストの原点を設定する)
 
+    //Duplicate the music titles (text) from the MP class
+    for (auto i : mp_->GetMusicTitles()) musicTitles.push_back(LP::DuplicateText(i));
+    for (auto i : musicTitles) LP::SetTextOriginCenter(i);
+
     //Verticle menu setup ()
-    ui_.AddUIText(Vector2f(275, 183), 4, menu, 0, 3, 1, 32); //set up a verticle menu for the main menu ()
-    ui_.AddUIText(Vector2f(803, 183), mp_->GetTotalNumOfMusicTracks(), mp_->GetMusicTitles(), 1, 5, 2, 32); //set up a verticle menu for song titles ()
+    ui_.AddUIText(Vector2f(275, 183), menu.size(), menu, 0, 3, 1, 32); //set up a verticle menu for the main menu ()
+    ui_.AddUIText(Vector2f(803, 183), musicTitles.size(), musicTitles, 1, 5, 2, 32); //set up a verticle menu for song titles ()
     ui_.SetDisplay("Text", 1, false); //song titles start off hidden ()
 
     //Set up the rest of the text used (残るテクストを設定する)
     setupInstructions = LP::SetText("Z to start,\n\nDown to time beats,\n\nX to return", Vector2f(584+16, 88+16), 16);
     savedText = LP::SetText("Saved", Vector2f(803, 183), 16);
     LP::SetTextOriginCenter(savedText);
-    displayBeatsPerMin = LP::SetText("Beats Per Min: " + to_string(beatsPerMin), Vector2f(96, 448), 16);
+    displayBeatsPerMin = LP::SetText("Beats Per Min: " + to_string(beatsPerMin), Vector2f(96, 480), 16);
     secPerBeat = mp_->GetBPMForSelectedMusic(musicID);
-    displaySecPerBeat = LP::SetText("Beats Per Sec: " + to_string(secPerBeat), Vector2f(96, 480), 16);
-    displayBeatTimer = LP::SetText(to_string(beatTimer), Vector2f(96, 512), 16);
-    displayBeatCount = LP::SetText(to_string(count), Vector2f(96, 544), 16);
+    displaySecPerBeat = LP::SetText("Beats Per Sec: " + to_string(secPerBeat), Vector2f(96, 512), 16);
+    displayBeatTimer = LP::SetText(to_string(beatTimer), Vector2f(96, 544), 16);
+    displayBeatCount = LP::SetText(to_string(count), Vector2f(96, 576), 16);
 
     //setup background picture ()
     background = LP::SetSprite(BPMSceneTexture, Vector2f(0, 0));
@@ -81,6 +86,7 @@ void BPMScene::Update(float delta_time, float beat_time)
             if (selectedOption == 1) state = SetUp;
             if (selectedOption == 2) state = PlayBack;
             if (selectedOption == 3) state = Save;
+            if (selectedOption == 4) ;
             pressedZ = true;
         }
     }
@@ -90,14 +96,14 @@ void BPMScene::Update(float delta_time, float beat_time)
         if (!pressedUp && Keyboard::isKeyPressed(Keyboard::Up))
         {
             musicID--;
-            if (musicID < 0) musicID = mp_->GetTotalNumOfMusicTracks() - 1;
+            if (musicID < 0) musicID = musicTitles.size() - 1;
             ui_.ScrollDown(1);
             pressedUp = true;
         }
         if (!pressedDown && Keyboard::isKeyPressed(Keyboard::Down))
         {
             musicID++;
-            if (musicID > mp_->GetTotalNumOfMusicTracks() - 1) musicID = 0;
+            if (musicID > musicTitles.size() - 1) musicID = 0;
             ui_.ScrollUp(1);
             pressedDown = true;
         }
@@ -129,6 +135,8 @@ void BPMScene::Update(float delta_time, float beat_time)
             zeroOutTime = 0;
             count = 0;
             listOfBeats.clear();
+
+            LP::SetTextPosition(mp_->GetMusicTitleText(selectedMusicID), Vector2f(96, 448));
         }
 
         if (!pressedDown && Keyboard::isKeyPressed(Keyboard::Down))
@@ -164,6 +172,8 @@ void BPMScene::Update(float delta_time, float beat_time)
             count = 0;
             timeInbetweenFrames = secPerBeat / 10;
             firstTime = false;
+
+            LP::SetTextPosition(mp_->GetMusicTitleText(selectedMusicID), Vector2f(96, 448));
         }
 
         beatTimer = beat_time;
@@ -253,6 +263,7 @@ void BPMScene::Draw()
     else if (state == SetUp)
     {
         LP::DrawText(setupInstructions);
+        LP::DrawText(mp_->GetMusicTitleText(selectedMusicID));
         LP::DrawText(displayBeatsPerMin, "Beats Per Min: " + to_string(beatsPerMin));
         LP::DrawText(displaySecPerBeat, "Sec Per Beat: " + to_string(secPerBeat));
         LP::DrawText(displayBeatTimer, "Beat Time: " + to_string(beatTimer));
@@ -263,6 +274,7 @@ void BPMScene::Draw()
 
     else if (state == PlayBack)
     {
+        LP::DrawText(mp_->GetMusicTitleText(selectedMusicID));
         LP::DrawText(displayBeatsPerMin, "Beats Per Min: " + to_string(beatsPerMin));
         LP::DrawText(displaySecPerBeat, "Sec Per Beat: " + to_string(secPerBeat));
         LP::DrawText(displayBeatTimer, "Beat Time: " + to_string(beatTimer));

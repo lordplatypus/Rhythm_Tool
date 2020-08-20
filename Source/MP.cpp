@@ -26,6 +26,7 @@ void MP::Load()
     musicMap[10].openFromFile("../Resources/Audio/moonshade_.flac");
     musicMap[11].openFromFile("../Resources/Audio/Reconfig.ogg");
     musicMap[12].openFromFile("../Resources/Audio/Gain Therapy Edit.ogg");
+    musicMap[13].openFromFile("../Resources/Audio/Il Vento D'oro.ogg");
 
     fstream data("../Resources/Data/BPM.txt");
     char dummy;
@@ -55,7 +56,8 @@ void MP::Load()
     musicTitles_.push_back(LP::SetText("moonshade_", Vector2f(512, 128), 16));
     musicTitles_.push_back(LP::SetText("Reconfig", Vector2f(512, 128), 16));
     musicTitles_.push_back(LP::SetText("Gain Therapy", Vector2f(512, 128), 16));
-    for (auto i : musicTitles_) LP::SetTextOriginCenter(i);
+    musicTitles_.push_back(LP::SetText("Il Vento D'oro", Vector2f(512, 128), 16));
+    //for (auto i : musicTitles_) LP::SetTextOriginCenter(i);
 }
 
 void MP::PlaySE()

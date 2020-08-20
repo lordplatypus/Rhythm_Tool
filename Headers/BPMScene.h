@@ -39,6 +39,7 @@ private:
     float alpha{0};
 
     //Music Select
+    std::vector<int> musicTitles;
     int musicID = 0;
     int selectedMusicID = 0;
 

@@ -355,6 +355,17 @@ int LP::SetText(const string& text, const Vector2f position, int textSize)
     return key;
 }
 
+int LP::DuplicateText(const int keyToDup)
+{
+    key++;
+    textMap[key].setFont(font);
+    textMap[key].setCharacterSize(textMap[keyToDup].getCharacterSize());
+    textMap[key].setPosition(textMap[keyToDup].getPosition());
+    textMap[key].setFillColor(textMap[keyToDup].getFillColor());
+    textMap[key].setString(textMap[keyToDup].getString());
+    return key;
+}
+
 void LP::SetTextColor(const int key, const sf::Color color)
 {
     textMap[key].setFillColor(color);
