@@ -18,6 +18,14 @@ public:
     virtual void End() override;
 
 private:
+    void ImportSPB();
+    void MainMenu();
+    void MusicSelectMenu();
+    void BPMSetUp();
+    void MusicPlayBack(float delta_time, float beat_time);
+    void SaveBPMForSelectedSong();
+
+private:
     //Background
     int background;
 
@@ -31,6 +39,7 @@ private:
     int setupInstructions;
     //int playbackInstructions;
     int savedText;
+    int displayMusicTitle;
     int displayBeatsPerMin;
     int displaySecPerBeat;
     int displayBeatTimer;
@@ -39,7 +48,7 @@ private:
     float alpha{0};
 
     //Music Select
-    std::vector<int> musicTitles;
+    std::vector<int> musicTitles;//for the verticle menu
     int musicID = 0;
     int selectedMusicID = 0;
 
@@ -50,6 +59,8 @@ private:
     float beatTimer{0};
     float zeroOutTime{0};
     int count{0};
+
+    std::unordered_map<int, float> MusicSPBMap;
 
     //Play Back
     std::vector<int> playerSprite;

@@ -13,22 +13,27 @@ MP::~MP()
 
 void MP::Load()
 {
-    musicMap[0].openFromFile("../Resources/Audio/Remember Passion Beat.ogg");
-    musicMap[1].openFromFile("../Resources/Audio/Necro funk the around.ogg");
-    musicMap[2].openFromFile("../Resources/Audio/Adjust.ogg");
-    musicMap[3].openFromFile("../Resources/Audio/Southern Arena.ogg");
-    musicMap[4].openFromFile("../Resources/Audio/Nothing Can Stop Us Now.ogg");
-    musicMap[5].openFromFile("../Resources/Audio/Fight For Your Life.ogg");
-    musicMap[6].openFromFile("../Resources/Audio/Amaryllis.flac");
-    musicMap[7].openFromFile("../Resources/Audio/Ayahuasca.flac");
-    musicMap[8].openFromFile("../Resources/Audio/Ceramic Summer.ogg");
-    musicMap[9].openFromFile("../Resources/Audio/La Tropica.ogg");
-    musicMap[10].openFromFile("../Resources/Audio/moonshade_.flac");
-    musicMap[11].openFromFile("../Resources/Audio/Reconfig.ogg");
-    musicMap[12].openFromFile("../Resources/Audio/Gain Therapy Edit.ogg");
-    musicMap[13].openFromFile("../Resources/Audio/Il Vento D'oro.ogg");
+    musicMap[0].openFromFile("./Resources/Audio/Remember Passion Beat.ogg");
+    musicMap[1].openFromFile("./Resources/Audio/Necro funk the around.ogg");
+    musicMap[2].openFromFile("./Resources/Audio/Adjust.ogg");
+    musicMap[3].openFromFile("./Resources/Audio/Southern Arena.ogg");
+    musicMap[4].openFromFile("./Resources/Audio/Nothing Can Stop Us Now.ogg");
+    musicMap[5].openFromFile("./Resources/Audio/Fight For Your Life.ogg");
+    musicMap[6].openFromFile("./Resources/Audio/Amaryllis.flac");
+    musicMap[7].openFromFile("./Resources/Audio/Ayahuasca.flac");
+    musicMap[8].openFromFile("./Resources/Audio/Ceramic Summer.ogg");
+    musicMap[9].openFromFile("./Resources/Audio/La Tropica.ogg");
+    musicMap[10].openFromFile("./Resources/Audio/moonshade_.flac");
+    musicMap[11].openFromFile("./Resources/Audio/Reconfig.ogg");
+    musicMap[12].openFromFile("./Resources/Audio/Gain Therapy Edit.ogg");
+    musicMap[13].openFromFile("./Resources/Audio/Il Vento D'oro.ogg");
+    musicMap[14].openFromFile("./Resources/Audio/02 LAZZULI LUVS_no vocal.ogg");
+    musicMap[15].openFromFile("./Resources/Audio/03 DESCENDING AIR CURRENT.ogg");
+    musicMap[16].openFromFile("./Resources/Audio/05 DETROIT BEAT.ogg");
+    musicMap[17].openFromFile("./Resources/Audio/12 New Gear.ogg");
+    musicMap[18].openFromFile("./Resources/Audio/24 across battle result.ogg");
 
-    fstream data("../Resources/Data/BPM.txt");
+    fstream data("./Resources/Data/BPM.txt");
     char dummy;
     int ID;
     do
@@ -43,21 +48,25 @@ void MP::Load()
     } while (dummy != '!');
     data.close();
 
-    musicTitles_.push_back(LP::SetText("Remember_Passion_Beat", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Necro_Funk_the_Around", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Adjust", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Southern_Arena", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Nothing Can Stop Us Now", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Fight For Your Life", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Amaryllis", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Ayahuasca", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Ceramic Summer", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("La Tropica", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("moonshade_", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Reconfig", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Gain Therapy", Vector2f(512, 128), 16));
-    musicTitles_.push_back(LP::SetText("Il Vento D'oro", Vector2f(512, 128), 16));
-    //for (auto i : musicTitles_) LP::SetTextOriginCenter(i);
+    musicTitles_.push_back("Remember_Passion_Beat");
+    musicTitles_.push_back("Necro_Funk_the_Around");
+    musicTitles_.push_back("Adjust");
+    musicTitles_.push_back("Southern_Arena");
+    musicTitles_.push_back("Nothing Can Stop Us Now");
+    musicTitles_.push_back("Fight For Your Life");
+    musicTitles_.push_back("Amaryllis");
+    musicTitles_.push_back("Ayahuasca");
+    musicTitles_.push_back("Ceramic Summer");
+    musicTitles_.push_back("La Tropica");
+    musicTitles_.push_back("moonshade_");
+    musicTitles_.push_back("Reconfig");
+    musicTitles_.push_back("Gain Therapy");
+    musicTitles_.push_back("Il Vento D'oro");
+    musicTitles_.push_back("LAZZULI LUVS");
+    musicTitles_.push_back("DESCENDING AIR CURRENT");
+    musicTitles_.push_back("DETROIT BEAT");
+    musicTitles_.push_back("New Gear");
+    musicTitles_.push_back("across battle result");
 }
 
 void MP::PlaySE()
@@ -104,8 +113,8 @@ void MP::SetBPMForSelectedMusic(int musicID, float newBPM)
 {
     musicBPMMap[musicID] = newBPM;
 
-    fstream data("../Resources/Data/BPM.txt");
-    ofstream temp("../Resources/Data/Temp.txt");
+    fstream data("./Resources/Data/BPM.txt");
+    ofstream temp("./Resources/Data/Temp.txt");
     char dummy;
     int ID;
     float dummyNum;
@@ -123,8 +132,8 @@ void MP::SetBPMForSelectedMusic(int musicID, float newBPM)
     }
     data.close();
     temp.close();
-    remove("../Resources/Data/BPM.txt");
-    rename("../Resources/Data/Temp.txt", "../Resources/Data/BPM.txt");
+    remove("./Resources/Data/BPM.txt");
+    rename("./Resources/Data/Temp.txt", "./Resources/Data/BPM.txt");
 }
 
 float MP::GetBPMForSelectedMusic(int musicID)
@@ -132,14 +141,19 @@ float MP::GetBPMForSelectedMusic(int musicID)
     return musicBPMMap[musicID];
 }
 
-int MP::GetMusicTitleText(int musicID)
+// int MP::GetMusicTitleText(int musicID)
+// {
+//     return musicTitles_[musicID];
+// }
+
+// std::vector<int> MP::GetMusicTitles()
+// {
+//     return musicTitles_;
+// }
+
+const std::string& MP::GetMusicTitle(int musicID)
 {
     return musicTitles_[musicID];
-}
-
-std::vector<int> MP::GetMusicTitles()
-{
-    return musicTitles_;
 }
 
 int MP::GetTotalNumOfMusicTracks()

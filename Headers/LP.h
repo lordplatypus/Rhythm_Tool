@@ -39,6 +39,7 @@ public:
     //Drawing Text
     static void SetFont(const std::string& filePath);
     static int SetText(const std::string& text, const sf::Vector2f position, int textSize);
+    static void SetNewText(const int key, const std::string& newText);
     static int DuplicateText(const int keyToDup);
     static void SetTextColor(const int key, const sf::Color color);
     static void SetTextColor(const int key, const int red, const int green, const int blue, const int alpha);

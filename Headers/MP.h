@@ -18,8 +18,9 @@ public:
     sf::Time GetCurrentPlayingMusicOffSet();
     void SetBPMForSelectedMusic(int musicID, float newBPM);
     float GetBPMForSelectedMusic(int musicID);
-    int GetMusicTitleText(int musicID);
-    std::vector<int> GetMusicTitles();
+    //int GetMusicTitleText(int musicID);
+    //std::vector<int> GetMusicTitles();
+    const std::string& GetMusicTitle(int musicID);
     int GetTotalNumOfMusicTracks();
     bool WindowOfInput();
     float BeatTime();
@@ -28,7 +29,8 @@ private:
     int currentPlayingMusic;
     std::map<int, sf::Music> musicMap;
     std::map<int, float> musicBPMMap;
-    std::vector<int> musicTitles_;
+    //std::vector<int> musicTitles_;
+    std::vector<std::string> musicTitles_;
 };
 
 #endif

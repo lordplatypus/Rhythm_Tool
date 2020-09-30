@@ -355,6 +355,11 @@ int LP::SetText(const string& text, const Vector2f position, int textSize)
     return key;
 }
 
+void LP::SetNewText(const int key, const std::string& newText)
+{
+    textMap[key].setString(newText);
+}
+
 int LP::DuplicateText(const int keyToDup)
 {
     key++;
